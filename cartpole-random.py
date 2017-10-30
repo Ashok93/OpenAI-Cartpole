@@ -17,6 +17,14 @@ def run_episode(env, params):
 	return total_reward
 
 
+def run_successful_episode(env, params):
+	observation = env.reset()
+
+	while True:
+		env.render()
+		action = 0 if np.matmul(params, observation) < 0 else 1
+		observation, reward, done, info = env.step(action)
+
 
 def train_model():
 	env = gym.make('CartPole-v0')
@@ -33,7 +41,7 @@ def train_model():
 			best_reward = reward
 			best_param = parameters
 
-		print "best reward at ", counter, "iteration is", best_reward		
+		print("best reward at ", counter, "iteration is", best_reward)		
 
 		if reward == 200:
 			break
@@ -42,5 +50,10 @@ def train_model():
 
 no_of_tries, params = train_model()
 
-print 'Total tries made by the program to find optimum parameter for balancing is ', no_of_tries
-print 'The parameters for successful control are ', params
+print('Total tries made by the program to find optimum parameter for balancing is ', no_of_tries)
+print('The parameters for successful control are ', params)
+
+print('Running successful solution....')
+
+env = gym.make('CartPole-v0')
+run_successful_episode(env, params)
