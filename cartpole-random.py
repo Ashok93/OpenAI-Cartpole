@@ -16,7 +16,6 @@ def run_episode(env, params):
 
 	return total_reward
 
-
 def run_successful_episode(env, params):
 	observation = env.reset()
 
@@ -24,6 +23,10 @@ def run_successful_episode(env, params):
 		env.render()
 		action = 0 if np.matmul(params, observation) < 0 else 1
 		observation, reward, done, info = env.step(action)
+
+		if done:
+			print("Balanced the pole successfully")
+			break
 
 
 def train_model():
@@ -34,7 +37,7 @@ def train_model():
 
 	for _ in range(10000):
 		counter += 1
-		parameters = np.random.rand(4)
+		parameters = np.random.rand(env.observation_space.shape[0])
 		reward = run_episode(env, parameters) #compute reward for that particular set of random params
 
 		if reward > best_reward:
@@ -48,12 +51,12 @@ def train_model():
 
 	return counter, best_param
 
-no_of_tries, params = train_model()
+if __name__ == '__main__':
+	no_of_tries, params = train_model()
 
-print('Total tries made by the program to find optimum parameter for balancing is ', no_of_tries)
-print('The parameters for successful control are ', params)
+	print('Total tries made by the program to find optimum parameter for balancing is ', no_of_tries)
+	print('The parameters for successful control are ', params)
+	print('Running successful solution....')
 
-print('Running successful solution....')
-
-env = gym.make('CartPole-v0')
-run_successful_episode(env, params)
+	env = gym.make('CartPole-v0')
+	run_successful_episode(env, params)	

@@ -32,7 +32,7 @@ def train():
 			best_reward = reward
 			parameters = new_params
 
-		print 'best reward for ', counter, ' iteration is ', best_reward
+		print('best reward for ', counter, ' iteration is ', best_reward)
 		if best_reward == 200:
 			break
 
@@ -40,5 +40,5 @@ def train():
 
 no_of_tries, optimal_params = train()
 
-print 'The total no. of tries taken to balance the pole by the program is ', no_of_tries
-print 'The optimal set of params for controlling the pole is ', optimal_params
+print('The total no. of tries taken to balance the pole by the program is ', no_of_tries)
+print('The optimal set of params for controlling the pole is ', optimal_params)
